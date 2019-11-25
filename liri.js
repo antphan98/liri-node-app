@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const keys = require("./keys.js");
+const moment = require("moment");
+moment().format();
 // const spotify = new Spotify(keys.spotify);
 
 const axios = require("axios");
@@ -21,6 +23,9 @@ function findConcerts() {
         const concertRes = "----------------------------------------" +
         "\nVenue Name: " + response.data[i].venue.name;
         "\nLocation: " + response.data[i].venue.city;
+        "\nDate: " + moment(dateArr[i], "MM-DD-YYYY");
+        
+        console.log(concertRes);
       
 
        }
