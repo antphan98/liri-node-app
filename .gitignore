@@ -62,4 +62,8 @@ typings/
 
 node_modules
 .DS_Store
+<<<<<<< HEAD
 .env
+=======
+.env
+>>>>>>> de64e7eb497fa97559c7d02ab1b91ac5b588bfd0
