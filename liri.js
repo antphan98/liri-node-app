@@ -40,7 +40,7 @@ function findConcerts() {
         const concertRes = "----------------------------------------" +
         "\nVenue Name: " + response.data[i].venue.name +
         "\nLocation: " + response.data[i].venue.city +
-        "\nDate: " + moment(dateArr[0], "MM-DD-YYYY") +
+        "\nDate: " + moment(dateArr[i], "MM-DD-YYYY") +
         "\n----------------------------------------";
         
         console.log(concertRes);
@@ -64,7 +64,7 @@ const Spotify = require("node-spotify-api");
 const spotify = new Spotify(keys.spotify);
 
 function spotifyThisSong(result) {
-    if (!result) {
+    if (!result === undefined) {
         result = "The Sign";
 
     }
@@ -105,15 +105,15 @@ function movieThis(result) {
     axios.get(`https://www.omdbapi.com/?t=` + result + `&y=&plot=short&apikey=trilogy`)
     .then(function(response) {
         const movieRes = "----------------------------------------" +
-        "\nTitle of the Movie: " + response.data.Title +
+        "\nMovie Title: " + response.data.Title +
         "\nYear of Release: " + response.data.Year +
         "\nIMDB Rating: " + response.data.imdbRating +
-        "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value; +
+        "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value +
         "\nCountry Produced: " + response.data.Country + 
         "\nLanguage: " + response.data.Language + 
         "\nPlot: " + response.data.Plot +
         "\nActors: " + response.data.Actors +
-        "----------------------------------------";
+        "\n----------------------------------------";
 
         console.log(movieRes);
 
@@ -126,7 +126,3 @@ function movieThis(result) {
 
 }
 
-
-findConcerts();
-spotifyThisSong();
-movieThis();
