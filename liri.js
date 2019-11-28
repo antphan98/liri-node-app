@@ -4,7 +4,6 @@ const keys = require("./keys.js");
 const moment = require("moment");
 moment().format();
 const fs = require("fs");
-// const spotify = new Spotify(keys.spotify);
 
 const axios = require("axios");
 
@@ -28,8 +27,6 @@ switch (liri) {
     doIt(result);
     break;
 
-
-
 };
 
 function findConcerts() {
@@ -45,7 +42,7 @@ function findConcerts() {
         const concertRes = "----------------------------------------" +
         "\nVenue Name: " + response.data[i].venue.name +
         "\nLocation: " + response.data[i].venue.city +
-        "\nDate: " + moment(dateArr[i], "MM-DD-YYYY") +
+        "\nDate: " + moment(response.data[i].datetime).format("LL") +
         "\n----------------------------------------";
         
         console.log(concertRes);
@@ -69,6 +66,11 @@ const Spotify = require("node-spotify-api");
 const spotify = new Spotify(keys.spotify);
 
 function spotifyThisSong(result) {
+
+    const Spotify = require("node-spotify-api");
+ 
+const spotify = new Spotify(keys.spotify);
+
     if (!result === undefined) {
         result = "The Sign";
 
@@ -84,7 +86,7 @@ function spotifyThisSong(result) {
         "\nSong Name: " + response.tracks.items[i].name +
         "\nAlbum Name: " + response.tracks.items[i].album.name +
         "\nPreview URL: " + response.tracks.items[i].preview_url +
-        "----------------------------------------";
+        "\n----------------------------------------";
 
         console.log(songResults);
 
@@ -129,7 +131,7 @@ function movieThis(result) {
 
 }
 
-function doIt(result) {
+function doIt() {
 
     fs.readFile("random.txt", "utf-8", function(error, data) {
 
@@ -145,11 +147,11 @@ function doIt(result) {
 
         }
 
-        }
+        });
 
 
 
-    }
+    
 
 
 }
