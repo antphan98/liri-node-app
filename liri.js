@@ -3,6 +3,7 @@ require("dotenv").config();
 const keys = require("./keys.js");
 const moment = require("moment");
 moment().format();
+const fs = require("fs");
 // const spotify = new Spotify(keys.spotify);
 
 const axios = require("axios");
@@ -21,6 +22,10 @@ switch (liri) {
 
     case "movie-this":
     movieThis(result);
+    break;
+
+    case "do-what-it-says":
+    doIt(result);
     break;
 
 
@@ -122,7 +127,29 @@ function movieThis(result) {
         console.log(error);
       });
 
+}
+
+function doIt(result) {
+
+    fs.readFile("random.txt", "utf-8", function(error, data) {
+
+        if(error) {
+
+            return console.log(error);
+        }
+
+        else {
+
+            const dataTxt = data.split(",");
+            spotifyThisSong(dataTxt[1]);
+
+        }
+
+        }
+
+
+
+    }
 
 
 }
-
