@@ -7,16 +7,20 @@ moment().format();
 
 const axios = require("axios");
 
-const userInput = process.argv[2];
+const liri = process.argv[2];
 const result = process.argv[3];
 
-switch (userInput) {
+switch (liri) {
     case "concert-this":
     findConcerts(result);
     break;
 
     case "spotify-this-song":
     spotifyThisSong(result);
+    break;
+
+    case "movie-this":
+    movieThis(result);
     break;
 
 
@@ -86,6 +90,37 @@ function spotifyThisSong(result) {
 
 }
 
+function movieThis(result) {
+
+    if(!result) {
+        result = "mr nobody";
+    }
+
+    axios.get("https://www.omdbapi.com/?t=" + result + "&y=&plot=short&apikey=trilogy")
+    .then(function(response) {
+        const movieRes = "----------------------------------------" +
+        "\nTitle of the Movie: " + response.data.Title +
+        "\nYear of Release: " + response.data.Year +
+        "\nIMDB Rating: " + response.data.imdbRating +
+        "\nRotten Tomatoes Rating: " + response.data.Ratings[1].Value; +
+        "\nCountry Produced: " + response.data.Country + 
+        "\nLanguage: " + response.data.Language + 
+        "\nPlot: " + response.data.Plot +
+        "\nActors: " + response.data.Actors +
+        "----------------------------------------";
+
+        console.log(movieRes);
+
+    })
+    .catch(function(error) {
+        console.log(error);
+      });
+
+
+
+}
+
 
 findConcerts();
 spotifyThisSong();
+movieThis();
