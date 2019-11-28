@@ -70,14 +70,20 @@ function spotifyThisSong(result) {
     }
     spotify
     .search({ type: "track", query: result})
-    .then(function(data) {
+    .then(function(response) {
 
-        const results =  "----------------------------------------" +
-        "\nArtist(s): " + data.tracks.items[i].artists[0].name 
+        for(let i = 0; i < 3; i++) {
 
-        console.log(results);
+        const songResults =  "----------------------------------------" +
+        "\nArtist(s): " + response.tracks.items[i].artists[0].name +
+        "\nSong Name: " + response.tracks.items[i].name +
+        "\nAlbum Name: " + response.tracks.items[i].album.name +
+        "\nPreview URL: " + response.tracks.items[i].preview_url +
+        "----------------------------------------";
 
+        console.log(songResults);
 
+        }
 
 
     })
@@ -92,11 +98,11 @@ function spotifyThisSong(result) {
 
 function movieThis(result) {
 
-    if(!result) {
+    if(result === undefined) {
         result = "mr nobody";
     }
 
-    axios.get("https://www.omdbapi.com/?t=" + result + "&y=&plot=short&apikey=trilogy")
+    axios.get(`https://www.omdbapi.com/?t=` + result + `&y=&plot=short&apikey=trilogy`)
     .then(function(response) {
         const movieRes = "----------------------------------------" +
         "\nTitle of the Movie: " + response.data.Title +
