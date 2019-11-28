@@ -3,7 +3,7 @@ require("dotenv").config();
 const keys = require("./keys.js");
 const moment = require("moment");
 moment().format();
-const spotify = new Spotify(keys.spotify);
+// const spotify = new Spotify(keys.spotify);
 
 const axios = require("axios");
 
@@ -55,19 +55,31 @@ function findConcerts() {
 
 }
 
-const Spotify = require('node-spotify-api');
+const Spotify = require("node-spotify-api");
  
-const spotify = new Spotify({
-  id: 4ab2c7b670b94baab739d7f4d565032e,
-  secret: bcc4ba1d964a4e9a9122e68beb64c987
-});
+const spotify = new Spotify(keys.spotify);
 
-function spotifyThisSong() {
+function spotifyThisSong(result) {
     if (!result) {
         result = "The Sign";
 
     }
-    spotify.search()
+    spotify
+    .search({ type: "track", query: result})
+    .then(function(data) {
+
+        const results =  "----------------------------------------" +
+        "\nArtist(s): " + data.tracks.items[i].artists[0].name 
+
+        console.log(results);
+
+
+
+
+    })
+    .catch(function(error) {
+        console.log(error);
+      });
 
 
 
@@ -76,3 +88,4 @@ function spotifyThisSong() {
 
 
 findConcerts();
+spotifyThisSong();
